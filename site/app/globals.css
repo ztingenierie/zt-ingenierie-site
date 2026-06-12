@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-white text-ink antialiased;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Lien d'évitement — le site applique lui-même le RGAA */
+.skip-link {
+  @apply absolute -top-96 left-2 z-50 rounded bg-primary px-4 py-2 text-white focus:top-2;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  @apply outline outline-2 outline-offset-2 outline-primary;
+}
