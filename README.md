@@ -18,6 +18,11 @@ Deux façons de générer, au choix (variable `VIDEO_PROVIDER`) :
 > en solo. Le mode `selfhost` te donne la vraie alternative : **héberger** et
 > contrôler un modèle open-weight de haute qualité — le générateur t'appartient.
 
+## 👉 Sur Mac (sans GPU) ? Suis le guide pas-à-pas : **[DEPLOY.md](./DEPLOY.md)**
+
+Il explique comment louer un GPU cloud (RunPod, ~0,34 $/h), y lancer le moteur,
+et tester ta génération — y compris **sans rien installer sur le Mac**.
+
 ## ✨ Fonctionnalités
 
 - **Prompt → vidéo** et **image(s) → vidéo** (image de départ, image de fin, références)
