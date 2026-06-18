@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: #06060a;
+  color: #ececf1;
+}
+
+body {
+  background-image: radial-gradient(
+      60% 50% at 50% -10%,
+      rgba(124, 92, 255, 0.18) 0%,
+      rgba(6, 6, 10, 0) 60%
+    ),
+    radial-gradient(
+      40% 40% at 90% 10%,
+      rgba(33, 212, 253, 0.1) 0%,
+      rgba(6, 6, 10, 0) 60%
+    );
+  background-attachment: fixed;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-white/10 bg-ink-800/70 backdrop-blur;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 font-semibold text-white shadow-lg shadow-brand/30 transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-white/80 transition hover:bg-white/10;
+  }
+  .chip {
+    @apply cursor-pointer rounded-full border px-3 py-1.5 text-sm transition;
+  }
+  .chip-on {
+    @apply border-brand bg-brand/20 text-white;
+  }
+  .chip-off {
+    @apply border-white/10 bg-white/5 text-white/70 hover:border-white/25;
+  }
+  .label {
+    @apply mb-2 block text-xs font-semibold uppercase tracking-wider text-white/50;
+  }
+}
+
+/* Skeleton shimmer for the generating state */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.12) 37%,
+    rgba(255, 255, 255, 0.04) 63%
+  );
+  background-size: 700px 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
