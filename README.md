@@ -1,13 +1,22 @@
 # ZT Video Studio 🎬
 
-Générateur de vidéos IA **ultra-réalistes** à partir d'un prompt et/ou d'une ou
-plusieurs images — une application web dans l'esprit de
-[Higgsfield](https://higgsfield.ai).
+Générateur de vidéos IA à partir d'un prompt et/ou d'une ou plusieurs images —
+une application web dans l'esprit de [Higgsfield](https://higgsfield.ai), avec
+**ton propre moteur de génération auto-hébergé**.
 
-L'app n'entraîne pas son propre modèle (impossible sans une infra ML massive) :
-comme Higgsfield, elle **orchestre les meilleurs modèles vidéo du marché**
-derrière une interface soignée — Google **Veo 3.1**, **Kling 3.0**,
-ByteDance **Seedance 2.0**, **Minimax Hailuo**, **Wan**.
+Deux façons de générer, au choix (variable `VIDEO_PROVIDER`) :
+
+1. **`selfhost` — ton propre moteur** (dossier [`engine/`](./engine)) : un modèle
+   **open-weight** (LTX-Video / Wan) tourne sur **ton GPU**, aucune API tierce.
+   C'est le mode « comme Kling, mais à toi ».
+2. **`fal`** — orchestration de modèles hébergés (Veo 3.1, Kling, Seedance…) via
+   l'API fal.ai, à la manière de Higgsfield.
+3. **`mock`** — démo gratuite sans clé ni GPU, pour tester toute l'interface.
+
+> ⚠️ Honnêteté : entraîner *de zéro* un modèle équivalent à Kling/Seedance
+> (des milliards de paramètres, des milliers de GPU, des mois) n'est pas réaliste
+> en solo. Le mode `selfhost` te donne la vraie alternative : **héberger** et
+> contrôler un modèle open-weight de haute qualité — le générateur t'appartient.
 
 ## ✨ Fonctionnalités
 
@@ -32,10 +41,30 @@ Ouvre http://localhost:3000. Par défaut (`VIDEO_PROVIDER=mock`) l'app est
 **100 % fonctionnelle sans clé** : elle simule la génération et renvoie une
 vidéo de démo, ce qui permet de tester toute l'expérience.
 
-## 🔌 Activer la génération réelle (fal.ai)
+## 🧠 Mode `selfhost` — ton propre moteur (recommandé)
 
-fal.ai héberge exactement les modèles orchestrés par Higgsfield, avec une API
-REST documentée.
+Fais tourner un vrai modèle open-weight sur ta machine. Tout est dans
+[`engine/`](./engine/README.md).
+
+1. Lance le moteur Python :
+   ```bash
+   cd engine
+   # installe torch adapté à ton GPU (CUDA ou ROCm) — voir engine/README.md
+   pip install -r requirements.txt
+   python app.py          # -> http://localhost:8000
+   ```
+2. Dans `.env.local` (racine) :
+   ```env
+   VIDEO_PROVIDER=selfhost
+   ENGINE_URL=http://localhost:8000
+   ```
+3. `npm run dev`, et génère depuis l'interface.
+
+Matériel : LTX-Video tient dans ~16 Go de VRAM (`LOW_VRAM=1`). Sur AMD RX 9070 XT
+il faut Linux + ROCm (voir notes dans `engine/README.md`) ; sinon un GPU cloud
+NVIDIA (RunPod/Vast, ~0,20–0,40 $/h) est le chemin le plus simple.
+
+## 🔌 Mode `fal` — modèles hébergés (style Higgsfield)
 
 1. Crée une clé sur https://fal.ai/dashboard/keys
 2. Dans `.env.local` :
